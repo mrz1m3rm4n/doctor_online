@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container-data-doctor row">
+
+        <div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {%if message.tags == 'success'%}alert-success{%else%}alert-danger{%endif%}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col-3 container-basic-doctor">
+            <img src="{{doctor.doctor_image.url}}" alt="Imagen user" />
+
+            <div>{{ score | safe}}</div>
+
+            <p>{{doctor.doctor_extract}}</p>
+        </div>
+
+        <div class="col-5 container-more-doctor">
+            <h2>{{doctor.doctor_id.first_name}} {{doctor.doctor_id.last_name}}</h2>
+            <h3>{{doctor.doctor_specialty.specialty_name}}</h3>
+            <h3>Cedula: {{doctor.doctor_professional_id}}</h3>
+
+            <p class="txt-doctor-address">{{doctor.doctor_address}}</p>
+
+            <p class="txt-doctor-description">{{doctor.doctor_description}}</p>
+        </div>
+
+        <div class="col-4 container-form-doctor">.
+            <div>
+                <form action={% url 'consultation' %} enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="doctor_id" value="{{ doctor.doctor_id.id }}" />
+
+                    <div class="container-inputs-search mb-3">
+                        <label for="date">Selecciona fecha de consulta:</label>
+                        <input type="date" required name="date" />
+                    </div>
+
+                    <input type="submit" value="Enviar solicitud" class="btn-primary" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

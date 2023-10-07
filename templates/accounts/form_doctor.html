@@ -1,0 +1,59 @@
+<form action={% url 'profile' %} enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+
+    <div class="container-img-profile">
+        {% if user_data.doctor_image.url %}
+            <img src="{{user_data.doctor_image.url}}" alt="Imagen user" />
+        {% endif %}
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="imagen">Foto de perfil:</label>
+        <input type="file" name="imagen" id="imagen" />
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="phone">Numero telefonico:</label>
+        <input type="text" required name="phone" value="{{user_data.doctor_phone}}" />
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="extract">Extracti: *maximo 150 caracteres</label>
+        <input type="text" required name="extract" value="{{user_data.doctor_extract}}" />
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="description">Descripcion:</label>
+        <textarea rows="5" required name="description">{{user_data.doctor_description}}</textarea>
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="doctor_professional_id">Cedula profesional:</label>
+        <input type="text" required name="doctor_professional_id" value="{{user_data.doctor_professional_id}}" />
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="city">Ciudad:</label>
+        <select required name="city">
+            {% for city in cities %}
+                <option value="{{ city.id }}" {% if user_data.doctor_city_id == city.id %}selected{% endif %}>{{ city }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="address">Direccion:</label>
+        <textarea rows="3" name="address">{{user_data.doctor_address}}</textarea>
+    </div>
+
+    <div class="container-inputs-search mb-3">
+        <label for="specialty">Especialidad:</label>
+        <select required name="specialty" select="{{user_data.specialty_city_id}}">
+            {% for specialty in specialtys %}
+                <option value="{{ specialty.id }}" {% if user_data.doctor_specialty_id == specialty.id %}selected{% endif %}>{{ specialty }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <input type="submit" value="Actualizar" class="btn-primary" />
+</form>

@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container-login">
+        <div class="row container-form-login">
+            <div class="col-6">
+                <div class="row d-flex h-100">
+                    <h2>INICIAR SESIÓN</h1>
+
+                    <div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert {%if message.tags == 'success'%}alert-success{%else%}alert-danger{%endif%}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <form action={% url 'login' %} method="POST">
+                        {% csrf_token %}
+                        <div class="container-inputs-search mb-3">
+                            <label for="ubicacion">Usuario</label>
+                            <input type="text" name="do_username" />
+                        </div>
+                        <div class="container-inputs-search mb-3">
+                            <label for="ubicacion">Password</label>
+                            <input type="password" name="do_password" />
+                        </div>
+
+                        <input type="submit" class="btn-primary" value="Ingresar" />
+                    </form>
+                </div>
+            </div>
+            <div class="col-6">
+                <img src="{% static 'images/img-doc.svg' %}" alt="Logo">
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container-index">
+        <div class="container-init-section">
+            {% include "../base/search.html" %}
+        </div>
+
+        <div class="container-data-doc">
+            {% for card in score %}
+                {{ card | safe}}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

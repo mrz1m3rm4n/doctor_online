@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container-login">
+        <div class="row container-form-login">
+            <div class="col-6">
+                <div class="row d-flex h-100">
+                    <h2 class="mb-4">Registro</h1>
+
+                    <div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert {%if message.tags == 'success'%}alert-success{%else%}alert-danger{%endif%}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <form action={% url 'register' %} method="POST">
+                        {% csrf_token %}
+
+                        {% for inputs in form %}
+                            <div class="container-inputs-search mb-3">
+                                {{ inputs.label_tag }}
+                                {{ inputs }}
+                            </div>
+                            {% if inputs.errors %}
+                                {{ inputs.errors }}
+                            {% endif %}
+                        {% endfor %}
+
+                        <input type="submit" value="Registrar" class="btn-primary" />
+                    </form>
+                </div>
+            </div>
+            <div class="col-6">
+                <img src="{% static 'images/img-doc.svg' %}" alt="Logo">
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="profile-container">
+        <div class="profile-form-container">
+            <div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {%if message.tags == 'success'%}alert-success{%else%}alert-danger{%endif%}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% if user.groups.first.name == 'Usario' %}
+                {% include "./form_user.html" %}
+            {% elif user.groups.first.name == 'Medico' %}
+                {% include "./form_doctor.html" %}
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock content %}

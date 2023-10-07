@@ -1,0 +1,29 @@
+<form action={% url 'doctors' %} method="POST">
+    {% csrf_token %}
+    <div class="container-search-med row">
+        <div class="col-3 d-flex align-items-center justify-content-center">
+            <span>Encuentra a tu Especialista Médico</span>
+        </div>
+        <div class="col-3 container-inputs-search">
+            <label for="especialista">Especialista</label>
+            <select id="especialista" name="especialista">cities
+                {% for specialty in specialtys %}
+                    <option value="{{ specialty.id }}">{{ specialty }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-3 container-inputs-search">
+            <label for="ubicacion">Ubicación</label>
+            <select id="ubicacion" name="ubicacion">
+                {% for city in cities %}
+                    <option value="{{ city.id }}">{{ city }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-1">
+            <input type="submit" value="Buscar" class="btn-primary" />
+        </div>
+    </div>
+</form>

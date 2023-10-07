@@ -1,0 +1,131 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="container-index">
+        <div class="container-init-section">
+            {% include "../base/search.html" %}
+
+            <div class="row">
+                <div class="col-5 d-flex align-content-center flex-wrap">
+                    <h2 class="text-green fw-light">LA MEJOR FORMA DE ENCONTRAR <strong class="fw-semibold">MEDICOS ESPECIALISTAS</strong> CERCA DE TI</h2>
+
+                    <p class="text-gray fw-medium fs-5">Obten los beneficios de tener a la mano una red de +3,000 médicos</p>
+
+                    <a class="btn btn-primary" href="{% url 'register' %}">Registrarme</a>
+                </div>
+                <div class="col-7 container-img-index">
+                    <img src="{% static 'images/img-doc.svg' %}" alt="Logo">
+                </div>
+            </div>
+        </div>
+        <div class="container-herramientas">
+            <h3>Nuestra plataforma es la herramienta ideal para que tomes en tus manos el control de tu salud</h3>
+
+            <div class="container-card-herramientas">
+                <div class="card-herramienta">
+                    <span>REGISTRATE</span>
+                    <img src="{% static 'images/cel.svg' %}" alt="Logo">
+                    <p>Dejanos conocerte un poco para darte la atención que te mereces.</p>
+                </div>
+
+                <div class="card-herramienta">
+                    <span>BUSCA</span>
+                    <img src="{% static 'images/search.svg' %}" alt="Logo">
+                    <p>Dinos que especialidad estás buscando y tu zona para mostrarte los médicos que recomendamos.</p>
+                </div>
+
+                <div class="card-herramienta">
+                    <span>AGENDA</span>
+                    <img src="{% static 'images/agenda.svg' %}" alt="Logo">
+                    <p>Selecciona el día y horario que te gustaría asistir a la consulta</p>
+                </div>
+
+                <div class="card-herramienta">
+                    <span>ASISTE</span>
+                    <img src="{% static 'images/asistente.svg' %}" alt="Logo">
+                    <p>Preséntate a tu consulta médica. ¡No olvides al final evaluar a tu doctor!</p>
+                </div>
+            </div>
+
+            <p class="text-register">Así de sencillo ¡No esperes más y regístrate! <br /> <span>ES TOTALMENTE GRATUITO</span></p>
+
+            <div class="d-flex justify-content-center mb-5">
+                <a class="btn btn-primary-negativo" href="{% url 'register' %}">Registrarme</a>
+            </div>
+
+            <div class="w-100" style="height: 1px"></div>
+        </div>
+        <div class="beneficios-doctor">
+            <h2>¿POR QUÉ USAR <span>DOCTOR ONLINE</span>?</h2>
+
+            <div class="container-beneficios-doctor">
+                <div>
+                    <h3>Acceso 24/7 los 365 días</h3>
+                    <p>Podria agendar citas con medicos especialistas en el momento que los necesites.</p>
+                </div>
+
+                <div>
+                    <h3>Especialistas calificados</h3>
+                    <p>Accede a una red médicos de más de 30 especialidades en todo el territorio méxicano.</p>
+                </div>
+
+                <div>
+                    <h3>100% Seguro</h3>
+                    <p>Utilizamos tecnología de vanguardia para garantizar tu privacidad y confidencialidad.</p>
+                </div>
+            </div>
+
+            <div class="container-beneficios-doctor">
+                <div>
+                    <h3>Receta electrónica</h3>
+                    <p>Al finalizar cada consulta podrás ver tu receta y diagnóstico fácilmente.</p>
+                </div>
+
+                <div>
+                    <h3>Historial clínico en línea</h3>
+                    <p>Siempre tendrás a la mano el registro de tus consultas, comentarios y medicamentos recetados.</p>
+                </div>
+
+                <div>
+                    <h3>Pagos online</h3>
+                    <p>Podrás realizar pagos de forma anticipada y solicitar tus facturas de cada consulta.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container-contacto">
+            <div class="mb-5">
+                <h2>CONTACTO</h2>
+                <p>¿Aún tiene dudas? Dejanos conocerlas y en breve nos pondremos en contacto</p>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="container-inputs-search mb-3 p-2">
+                        <label for="ubicacion">Nombre completo</label>
+                        <input type="text" />
+                    </div>
+                    <div class="container-inputs-search mb-3 p-2">
+                        <label for="ubicacion">Telefono</label>
+                        <input type="text" />
+                    </div>
+                    <div class="container-inputs-search mb-3 p-2">
+                        <label for="ubicacion">E-mail</label>
+                        <input type="email" />
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="container-inputs-search p-2">
+                        <label for="ubicacion">Comentarios</label>
+                        <textarea rows="8"></textarea>
+                    </div>
+                    <div class="d-flex mt-3 justify-content-end">
+                        <a class="btn btn-primary" href="#">Enviar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

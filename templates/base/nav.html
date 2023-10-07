@@ -1,0 +1,39 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg">
+    {% if user.is_authenticated %}
+        <div class="container-menu container-menu-login">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'images/logo-light.png' %}" alt="Logo">
+            </a>
+
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>{{ user.first_name }} {{ user.last_name }}</span>
+                    <img src="{% static 'images/usuario.png' %}" alt="User img">
+                </a>
+
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'profile' %}">Perfil</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <div class="container-menu container-menu-logout">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
+            </a>
+
+            <ul class ="navbar-nav">
+                <li class="nav-item">
+                    <a class="btn btn-outline" href="{% url 'login' %}">Nosotros</a>
+                    <a class="btn btn-outline" href="{% url 'login' %}">Hospitales</a>
+                    <a class="btn btn-outline" href="{% url 'login' %}">Especialidades</a>
+                    <a class="btn btn-outline" href="{% url 'login' %}">Contacto</a>
+                    <a class="btn btn-primary" href="{% url 'register' %}">Registrarme</a>
+                    <a class="btn btn-primary" href="{% url 'login' %}">Entrar</a>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+</nav>
