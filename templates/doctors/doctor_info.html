@@ -4,22 +4,55 @@
 
 {% block content %}
 
+    <div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {%if message.tags == 'success'%}alert-success{%else%}alert-danger{%endif%}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
     <div class="container-data-doctor row">
 
-        <div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert {%if message.tags == 'success'%}alert-success{%else%}alert-danger{%endif%}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        </div>
-
-        <div class="col-3 container-basic-doctor">
+        <div class="col-4 container-basic-doctor">
             <img src="{{doctor.doctor_image.url}}" alt="Imagen user" />
 
             <div>{{ score | safe}}</div>
 
             <p>{{doctor.doctor_extract}}</p>
+
+            <div class="w-100 d-inline">
+                {% if user.is_authenticated %}
+                    {% if user.groups.first.name != "Medico" %}
+                        <form action={% url 'save' %} enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
+
+                            <input type="hidden" name="doctor_id" value="{{ doctor.id }}" />
+
+                            <div class="container-inputs-search mb-3 d-block">
+                                <label for="score">Califica al medico:</label>
+                                <select class="w-100" name="score">
+                                    <option value="5.0" {%if review.review_score == 5.0%}selected{%else%}""{%endif%}>5.0</option>
+                                    <option value="4.5" {%if review.review_score == 4.5%}selected{%else%}""{%endif%}>4.5</option>
+                                    <option value="4.0" {%if review.review_score == 4.0%}selected{%else%}""{%endif%}>4.0</option>
+                                    <option value="3.5" {%if review.review_score == 3.5%}selected{%else%}""{%endif%}>3.5</option>
+                                    <option value="3.0" {%if review.review_score == 3.0%}selected{%else%}""{%endif%}>3.0</option>
+                                    <option value="2.5" {%if review.review_score == 2.5%}selected{%else%}""{%endif%}>2.5</option>
+                                    <option value="2.0" {%if review.review_score == 2.0%}selected{%else%}""{%endif%}>2.0</option>
+                                    <option value="1.5" {%if review.review_score == 1.5%}selected{%else%}""{%endif%}>1.5</option>
+                                    <option value="1.0" {%if review.review_score == 1.0%}selected{%else%}""{%endif%}>1.0</option>
+                                </select>
+                            </div>
+
+                            <div class="container-inputs-search mb-3">
+                                <textarea name="comment" rows="5" placeholder="Ingrese su opinion:">{{review.review_description}}</textarea>
+                            </div>
+
+                            <input type="submit" value="Guardar" class="btn-primary" />
+                        </form>
+                    {% endif %}
+                {% endif %}
+            </div>
         </div>
 
         <div class="col-5 container-more-doctor">
@@ -32,20 +65,24 @@
             <p class="txt-doctor-description">{{doctor.doctor_description}}</p>
         </div>
 
-        <div class="col-4 container-form-doctor">.
+        <div class="col-3 container-form-doctor">
             <div>
-                <form action={% url 'consultation' %} enctype="multipart/form-data" method="POST">
-                    {% csrf_token %}
+                {% if user.is_authenticated %}
+                    {% if user.groups.first.name != "Medico" %}
+                        <form action={% url 'consultation' %} enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
 
-                    <input type="hidden" name="doctor_id" value="{{ doctor.doctor_id.id }}" />
+                            <input type="hidden" name="doctor_id" value="{{ doctor.id }}" />
 
-                    <div class="container-inputs-search mb-3">
-                        <label for="date">Selecciona fecha de consulta:</label>
-                        <input type="date" required name="date" />
-                    </div>
+                            <div class="container-inputs-search mb-3">
+                                <label for="date">Selecciona fecha de consulta:</label>
+                                <input type="date" required name="date" />
+                            </div>
 
-                    <input type="submit" value="Enviar solicitud" class="btn-primary" />
-                </form>
+                            <input type="submit" value="Enviar solicitud" class="btn-primary" />
+                        </form>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

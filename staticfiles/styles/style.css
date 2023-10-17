@@ -468,3 +468,21 @@ footer {
     font-weight: 400;
     line-height: 20px;
 }
+
+/*      Consultation       */
+
+.consultation-container {
+    width: 100%;
+    padding: 20px;
+}
+
+.card-consultation {
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-green-light);
+}

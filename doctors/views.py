@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Doctors
+from reviews.models import Reviews
 from cities.models import Cities
 from specialtys.models import Specialty
 
@@ -40,13 +41,16 @@ def doctor_view(request, doctor):
         doctor = Doctors.objects.select_related('doctor_id').select_related(
             'doctor_specialty').select_related('doctor_city').filter(doctor_id=doctor).first()
 
+        review = Reviews.objects.filter(
+            review_user=request.user.id, review_doctor=doctor.id).first()
+
         parte_entera, parte_decimal = divmod(doctor.doctor_score, 1)
 
         stars_html = ''.join(['<span class="star star-activate"></span>' if i < parte_entera
                               else '<span class="star star-1-5"></span>' if i == parte_entera and parte_decimal == 0.5
                               else '<span class="star"></span>' for i in range(5)])
 
-        return render(request, 'doctors/doctor_info.html', {'doctor': doctor, 'score': stars_html})
+        return render(request, 'doctors/doctor_info.html', {'doctor': doctor, 'score': stars_html, 'review': review})
     else:
         return redirect('index')
 
@@ -63,7 +67,7 @@ def generate_view_doctor(data_doctors):
 
         card_doctors = f'''
             <div class=" mb-4">
-                <div class="col-7">
+                <div class="">
                     <div class="row">
                         <div class="col-5 card-doctor-img">
                             <img src="{ data_doctor.doctor_image.url }" alt="Logo">
@@ -78,12 +82,11 @@ def generate_view_doctor(data_doctors):
                             </div>
                             <div class="d-flex align-items-center justify-content-between">
                                 <p>{ data_doctor.doctor_address }, { data_doctor.doctor_city.city_name }</p>
-                                <a class="btn btn-primary" href="doctors/doctor-info/{data_doctor.doctor_id.id}">Buscar</a>
+                                <a class="btn btn-primary" href="doctor-info/{data_doctor.doctor_id.id}">Buscar</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div  class="col-5"></div>
             </div>
         '''
 

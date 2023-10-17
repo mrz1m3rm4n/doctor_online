@@ -85,7 +85,8 @@ INSTALLED_APPS = [
     'doctors',
     'cities',
     'specialtys',
-    'consultations'
+    'consultations',
+    'reviews'
 ]
 
 TEMPLATES = [

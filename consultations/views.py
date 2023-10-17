@@ -24,9 +24,16 @@ def generate_consultation(request):
         consultation.save()
 
         if consultation:
-            messages.success(request, 'Doctor creado correctamente')
+            messages.success(
+                request, 'Se ha enviado la solicitud, espere a que el doctor se comunique con usted')
 
             return redirect('index')
 
     else:
         pass
+
+
+def get_consultation(request):
+    consultations = Consultations.objects.select_related('consultation_doctor__doctor_id').filter(
+        consultation_user=request.user.id)
+    return render(request, 'user/my-consultation.html', {'consultations': consultations})

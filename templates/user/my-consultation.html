@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="consultation-container">
+        {% for consultation in consultations %}
+            <div class="card-consultation">
+                <div class="">
+                    <h2>{{consultation.consultation_doctor.doctor_specialty}}</h2>
+
+                    <span>{{consultation.consultation_doctor.doctor_id.first_name}} {{consultation.consultation_doctor.doctor_id.last_name}} / {{consultation.consultation_doctor.doctor_professional_id}} / {{consultation.consultation_date | date:"M. d, Y"}}</span>
+                </div>
+
+                <button class="btn-primary">Ver</button>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}
