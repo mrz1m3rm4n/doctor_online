@@ -6,7 +6,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': 'settings/local.cnf'
+            'read_default_file': 'settings/testing.cnf'
         }
     }
 }

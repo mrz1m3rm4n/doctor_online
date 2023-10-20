@@ -1,0 +1,5 @@
+[client]
+database = doctor_online_db_test
+user = root
+password = ''
+default-character-set = utf8
