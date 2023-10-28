@@ -10,6 +10,10 @@ Installar django
 
 pip install django
 
+Instalamos los requerimientos
+
+pip install -r ./requerimientos.txt
+
 Ejecutamos el proyecto
 
 python manage.py runserver --settings=settings.local
