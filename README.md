@@ -6,10 +6,6 @@ Activamos entorno virtual
 
 source ./env/Scripts/active
 
-Installar django
-
-pip install django
-
 Instalamos los requerimientos
 
 pip install -r ./requerimientos.txt
