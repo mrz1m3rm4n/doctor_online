@@ -60,100 +60,63 @@ def register_view(request):
 @login_required
 # @permission_required('accounts.change_doctors', raise_exception=True)
 def profile_view(request):
-    if request.user.groups.first().name == 'Usario':
-        if request.method == 'POST' and request.FILES.get('imagen'):
-            phone = request.POST.get('phone')
+    try:
+        data_profile = Doctors.objects.get(doctor_id=request.user.id)
+    except ObjectDoesNotExist:
+        data_profile = None
 
-            doctor_image = request.FILES['imagen']
-            doctor_image_name = request.FILES['imagen'].name
+    if request.method == 'POST' and request.FILES.get('imagen'):
 
-            try:
-                doctor = Doctors.objects.get(doctor_id=user)
+        doctor_image = request.FILES['imagen']
+        doctor_image_name = request.FILES['imagen'].name
 
-                doctor.doctor_phone = phone
-                doctor.doctor_image = doctor_image
-                doctor.doctor_image_name = doctor_image_name
-                doctor.save()
+        phone = request.POST.get('phone')
+        description = request.POST.get('description')
+        extract = request.POST.get('extract')
+        address = request.POST.get('address')
+        doctor_professional_id = request.POST.get('doctor_professional_id')
+        city_id = request.POST.get('city')
+        specialty_id = request.POST.get('specialty')
 
-                messages.success(
-                    request, 'Información actualizada correctamente')
-            except Doctors.DoesNotExist:
-                doctor = Doctors(
-                    doctor_phone=phone,
-                    doctor_image=doctor_image,
-                    doctor_image_name=doctor_image_name,
-                )
-                doctor.save()
+        user = request.user  # Obtén la instancia completa del usuario actual
 
-                messages.success(request, 'Doctor creado correctamente')
-
-            return redirect('profile')
-        else:
-            try:
-                data_profile = Doctors.objects.get(doctor_id=request.user.id)
-            except ObjectDoesNotExist:
-                data_profile = None
-
-            return render(request, 'accounts/profile.html', {'user_data': data_profile})
-    else:
         try:
-            data_profile = Doctors.objects.get(doctor_id=request.user.id)
-        except ObjectDoesNotExist:
-            data_profile = None
+            doctor = Doctors.objects.get(doctor_id=user)
 
-        if request.method == 'POST':
-            doctor_image = request.FILES.get(
-                'imagen', data_profile.doctor_image)
-            doctor_image_name = request.FILES['imagen'].name if 'imagen' in request.FILES else data_profile.doctor_image_name
+            doctor.doctor_phone = phone
+            doctor.doctor_description = description
+            doctor.doctor_extract = extract
+            doctor.doctor_address = address
+            doctor.doctor_professional_id = doctor_professional_id
+            doctor.doctor_city_id = city_id
+            doctor.doctor_image = doctor_image
+            doctor.doctor_image_name = doctor_image_name
+            doctor.doctor_specialty_id = specialty_id
+            doctor.save()
 
-            phone = request.POST.get('phone')
-            description = request.POST.get('description')
-            extract = request.POST.get('extract')
-            address = request.POST.get('address')
-            doctor_professional_id = request.POST.get('doctor_professional_id')
-            city_id = request.POST.get('city')
-            specialty_id = request.POST.get('specialty')
+            messages.success(
+                request, 'Información actualizada correctamente')
+        except Doctors.DoesNotExist:
+            doctor = Doctors(
+                doctor_id=user,
+                doctor_phone=phone,
+                doctor_description=description,
+                doctor_extract=extract,
+                doctor_address=address,
+                doctor_professional_id=doctor_professional_id,
+                doctor_city_id=city_id,
+                doctor_image=doctor_image,
+                doctor_score=0.0,
+                doctor_image_name=doctor_image_name,
+                doctor_specialty_id=specialty_id,
+            )
+            doctor.save()
 
-            user = request.user  # Obtén la instancia completa del usuario actual
+            messages.success(request, 'Doctor creado correctamente')
 
-            try:
-                doctor = Doctors.objects.get(doctor_id=user)
+        return redirect('profile')
+    else:
+        cities = Cities.objects.all()
+        specialtys = Specialty.objects.all()
 
-                doctor.doctor_phone = phone
-                doctor.doctor_description = description
-                doctor.doctor_extract = extract
-                doctor.doctor_address = address
-                doctor.doctor_professional_id = doctor_professional_id
-                doctor.doctor_city_id = city_id
-                doctor.doctor_image = doctor_image
-                doctor.doctor_image_name = doctor_image_name
-                doctor.doctor_specialty_id = specialty_id
-                doctor.save()
-
-                messages.success(
-                    request, 'Información actualizada correctamente')
-            except Doctors.DoesNotExist:
-                doctor = Doctors(
-                    doctor_id=user,
-                    doctor_phone=phone,
-                    doctor_description=description,
-                    doctor_extract=extract,
-                    doctor_address=address,
-                    doctor_professional_id=doctor_professional_id,
-                    doctor_city_id=city_id,
-                    doctor_image=doctor_image,
-                    doctor_score=0.0,
-                    doctor_image_name=doctor_image_name,
-                    doctor_specialty_id=specialty_id,
-                )
-                doctor.save()
-
-                messages.success(request, 'Doctor creado correctamente')
-
-            return redirect('profile')
-
-        else:
-            cities = Cities.objects.all()
-            specialtys = Specialty.objects.all()
-
-            return render(request, 'accounts/profile.html', {'user_data': data_profile, 'cities': cities, 'specialtys': specialtys})
+        return render(request, 'accounts/profile.html', {'user_data': data_profile, 'cities': cities, 'specialtys': specialtys})
