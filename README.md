@@ -1,3 +1,5 @@
+Requiere python version 3.11.5 .... versiones en adelante no puede instalar la dependencia de mysqlclient
+
 Creamos entorno virtual
 
 python -m venv env
