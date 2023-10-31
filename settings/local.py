@@ -10,3 +10,5 @@ DATABASES = {
         }
     }
 }
+
+STATIC_ROOT = 'statics'
