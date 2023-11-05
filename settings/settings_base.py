@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-iu(-udr%=6a=86jx&=1bt2hilcy733fl=v_8-hdhi1dtzl@&$!'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,9 +120,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AWS_ACCESS_KEY_ID = 'AKIAQHQFTMBTGTZZMKF7'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'doctoronlinebkt'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = ''
 AWS_S3_REGION_NAME = 'us-east-2'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
