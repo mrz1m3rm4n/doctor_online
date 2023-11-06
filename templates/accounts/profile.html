@@ -14,11 +14,7 @@
                 {% endif %}
             </div>
 
-            {% if user.groups.first.name == 'Usario' %}
-                {% include "./form_user.html" %}
-            {% elif user.groups.first.name == 'Medico' %}
-                {% include "./form_doctor.html" %}
-            {% endif %}
+            {% include "./form_doctor.html" %}
 
         </div>
     </div>
